@@ -1,0 +1,7 @@
+CMakeLists.txt.user
+.vscode/settings.json
+.vs/
+
+build/
+project/bin/
+project/data
