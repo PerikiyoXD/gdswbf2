@@ -44,9 +44,8 @@ namespace SWBF2
 
         while (!streamReader.IsEof()) {
             auto streamReaderChild = streamReader.ReadChild();
-
-            if (streamReaderChild.has_value())
-                children_parents.emplace_back(streamReaderChild.value(), streamReader);
+            if (streamReaderChild)
+                children_parents.emplace_back(*streamReaderChild, streamReader);
         }
 
         for (auto &[reader1, reader2] : children_parents) {

@@ -6,7 +6,7 @@
 #include "StreamReader.hpp"
 
 #include "UcfbChunk.hpp"
-#include "LocalizationChunk.hpp"
+#include "WorldChunk.hpp"
 
 namespace SWBF2
 {
@@ -17,6 +17,7 @@ namespace SWBF2
         static inline const std::unordered_map<uint32_t, ChunkProcessingFunction> m_functions
         {
             { "ucfb"_m, UcfbChunk::ProcessChunk },
+            { "wrld"_m, WorldChunk::ProcessChunk }
         };
 
         static void ProcessChunk(StreamReader &streamReader, StreamReader &parentReader);

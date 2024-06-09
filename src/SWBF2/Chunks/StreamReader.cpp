@@ -41,9 +41,12 @@ namespace SWBF2
         ChunkHeader child;
         this->operator>>(child);
 
+        auto prev_head = m_head;
         m_head += child.size;
 
-        return StreamReader(child, m_data + m_head);
+        AlignHead();
+
+        return StreamReader(child, m_data + prev_head);
     }
 
     bool StreamReader::SkipBytes(uint32_t bytes)

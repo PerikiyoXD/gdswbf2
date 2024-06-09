@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <optional>
+#include <string>
 
 #include <godot_cpp/variant/utility_functions.hpp>
 
@@ -22,6 +23,20 @@ namespace SWBF2
         StreamReader(const std::vector<std::byte> &bytes);
 
         std::optional<StreamReader> ReadChild();
+
+        template <uint32_t T>
+        std::optional<StreamReader> ReadChildWithHeader()
+        {
+            auto reader = ReadChild();
+            if (!reader)
+                return std::nullopt;
+
+            if (reader->GetHeader().m_Magic != T)
+                return std::nullopt;
+
+            return reader;
+        }
+
         bool SkipBytes(uint32_t bytes);
         const ChunkHeader &GetHeader() const;
         std::size_t GetHead();
@@ -39,6 +54,16 @@ namespace SWBF2
             std::memcpy(&value, &m_data[m_head], sizeof(T));
 
             m_head += sizeof(T);
+
+            return *this;
+        }
+
+        StreamReader &operator>>(std::string &value)
+        {
+            const char *str = reinterpret_cast<const char *>(&m_data[m_head]);
+            std::size_t len = GetHeader().size;
+
+            value = std::string_view(str, len);
 
             return *this;
         }
