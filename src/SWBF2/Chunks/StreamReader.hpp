@@ -47,8 +47,7 @@ namespace SWBF2
         StreamReader &operator>>(T &value)
         {
             if (IsEof() || (m_head + sizeof(T)) >= m_header.size) {
-                godot::UtilityFunctions::printerr(__LINE__, " - ", __FILE__, ": eof");
-                return *this;
+                throw std::exception("eof");
             }
 
             std::memcpy(&value, &m_data[m_head], sizeof(T));
