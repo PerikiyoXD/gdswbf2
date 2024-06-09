@@ -69,7 +69,7 @@ namespace SWBF2
 
             std::memcpy(&value[0], &m_data[m_head], totalSize);
 
-            m_head += sizeof(T);
+            m_head += totalSize;
 
             return *this;
         }
