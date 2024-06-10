@@ -54,6 +54,22 @@ namespace SWBF2::Native
             return *this;
         }
 
+        template<typename T, std::size_t size>
+        StreamReader &operator>>(T(&value)[size])
+        {
+            std::size_t totalSize = size * sizeof(T);
+
+            if (IsEof() || (m_head + totalSize) > m_header.size) {
+                throw std::runtime_error("eof");
+            }
+
+            std::memcpy(&value[0], &m_data[m_head], totalSize);
+
+            m_head += totalSize;
+
+            return *this;
+        }
+
         template<typename T>
         StreamReader &operator>>(std::vector<T> &value)
         {

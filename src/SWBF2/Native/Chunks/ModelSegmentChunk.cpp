@@ -26,8 +26,7 @@ namespace SWBF2::Native
                     *readerChild >> mat.m_diffuseColor.color32;
                     *readerChild >> mat.m_specularColor.color32;
                     *readerChild >> mat.m_specularExponent;
-                    *readerChild >> mat.m_parameters[0];
-                    *readerChild >> mat.m_parameters[1];
+                    *readerChild >> mat.m_parameters;
                     *readerChild >> mat.m_attachedLight;
 
                     segment.m_material = mat;
@@ -85,7 +84,7 @@ namespace SWBF2::Native
                 Vector3<float> mul = model.m_info.m_vertexBox[1] - model.m_info.m_vertexBox[0];
 
                 int16_t data[4];
-                streamReader >> data[0] >> data[1] >> data[2] >> data[3];
+                streamReader >> data;
                 Vector3<float> c(data[0], data[1], data[2]);
 
                 constexpr float i16min = std::numeric_limits<int16_t>::min();
@@ -107,7 +106,7 @@ namespace SWBF2::Native
             if ((segment.m_verticesBuf.m_flags & VBUFFlags::BlendWeightCompressed) != 0)
             {
                 int8_t data[4];
-                streamReader >> data[0] >> data[1] >> data[2] >> data[3];
+                streamReader >> data;
 
                 float_t one = (float)data[1], two = (float)data[2];
                 segment.m_verticesBuf.m_weights.push_back({ two, one, 1.0f - two - one });
@@ -139,7 +138,7 @@ namespace SWBF2::Native
             if ((segment.m_verticesBuf.m_flags & VBUFFlags::NormalCompressed) != 0)
             {
                 int8_t data[4];
-                streamReader >> data[0] >> data[1] >> data[2] >> data[3];
+                streamReader >> data;
                 Vector3<float> normal((float_t)data[0], (float_t)data[1], (float_t)data[2]);
                 normal = (normal * 2.0f) - 1.0f;
                 segment.m_verticesBuf.m_normals.push_back(normal);
@@ -158,12 +157,12 @@ namespace SWBF2::Native
             if ((segment.m_verticesBuf.m_flags & VBUFFlags::NormalCompressed) != 0)
             {
                 int8_t data[4];
-                streamReader >> data[0] >> data[1] >> data[2] >> data[3];
+                streamReader >> data;
                 Vector3<float> tangent((float_t)data[0], (float_t)data[1], (float_t)data[2]);
                 tangent = (tangent * 2.0f) - 1.0f;
                 segment.m_verticesBuf.m_tangents.push_back(tangent);
 
-                streamReader >> data[0] >> data[1] >> data[2] >> data[3];
+                streamReader >> data;
                 Vector3<float> biTangent((float_t)data[0], (float_t)data[1], (float_t)data[2]);
                 biTangent = (biTangent * 2.0f) - 1.0f;
                 segment.m_verticesBuf.m_biTangents.push_back(biTangent);
@@ -199,7 +198,7 @@ namespace SWBF2::Native
             if ((segment.m_verticesBuf.m_flags & VBUFFlags::TexCoordCompressed) != 0)
             {
                 uint16_t data[2];
-                streamReader >> data[0] >> data[1];
+                streamReader >> data;
                 Vector2<float> uv(data[0], data[1]);
                 uv = uv / 2048.0f;
                 segment.m_verticesBuf.m_texCoords.push_back(uv);
