@@ -21,8 +21,8 @@ namespace SWBF2
     {
         godot::UtilityFunctions::print("hello world!");
 
-        // UcfbChunk::ReadUcfbFile("data/_lvl_pc/common.lvl");
-        // UcfbChunk::ReadUcfbFile("data/_lvl_pc/core.lvl");
+        SWBF2::Native::UcfbChunk::ReadUcfbFile("data/_lvl_pc/common.lvl");
+        SWBF2::Native::UcfbChunk::ReadUcfbFile("data/_lvl_pc/core.lvl");
         SWBF2::Native::UcfbChunk::ReadUcfbFile("data/_lvl_pc/cor/cor1.lvl");
     }
 

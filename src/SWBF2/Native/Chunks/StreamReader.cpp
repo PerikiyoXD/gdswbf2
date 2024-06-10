@@ -70,6 +70,11 @@ namespace SWBF2::Native
         return m_head;
     }
 
+    std::size_t StreamReader::RemainingBytes()
+    {
+        return GetHeader().size - m_head;
+    }
+
     bool StreamReader::IsEof()
     {
         return m_head >= GetHeader().size;

@@ -4,6 +4,7 @@ target_sources(${PROJECT_NAME}
     PRIVATE
         "SWBF2/Native/Chunks/ChunkHeader.cpp"
         "SWBF2/Native/Chunks/ChunkProcessor.cpp"
+        "SWBF2/Native/Chunks/LoclChunk.cpp"
         "SWBF2/Native/Chunks/ModelChunk.cpp"
         "SWBF2/Native/Chunks/ModelSegmentChunk.cpp"
         "SWBF2/Native/Chunks/StreamReader.cpp"

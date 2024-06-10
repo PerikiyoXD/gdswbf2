@@ -37,6 +37,7 @@ namespace SWBF2::Native
         bool SkipBytes(uint32_t bytes);
         const ChunkHeader &GetHeader() const;
         std::size_t GetHead();
+        std::size_t RemainingBytes();
         bool IsEof();
         void AlignHead();
 

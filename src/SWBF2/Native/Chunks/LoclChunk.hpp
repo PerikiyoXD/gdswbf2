@@ -4,9 +4,9 @@
 
 namespace SWBF2::Native
 {
-    class UcfbChunk {
+    class LoclChunk {
     public:
-        static void ReadUcfbFile(const std::string &filename);
         static void ProcessChunk(StreamReader &streamReader);
+        static void ReadLoclEntries(StreamReader &streamReader, const std::string &loclName);
     };
 }
