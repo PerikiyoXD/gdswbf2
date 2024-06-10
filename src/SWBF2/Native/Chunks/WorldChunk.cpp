@@ -6,14 +6,15 @@
 
 #include "WorldChunk.hpp"
 
+#include "Native/Level.hpp"
+
 namespace SWBF2::Native
 {
     void WorldChunk::ProcessChunk(StreamReader &streamReader)
     {
         auto nameReaderChild = streamReader.ReadChildWithHeader<"NAME"_m>();
 
-        std::string worldName;
-        *nameReaderChild >> worldName;
+        *nameReaderChild >> Level::m_world.m_worldName;
 
         std::optional<StreamReader> readerChild;
         while ((readerChild = streamReader.ReadChild()).has_value())
@@ -21,14 +22,12 @@ namespace SWBF2::Native
             switch (readerChild->GetHeader().m_Magic)
             {
                 case "TNAM"_m: {
-                    std::string terrainName;
-                    *readerChild >> terrainName;
+                    *readerChild >> Level::m_world.m_terrainName;
                     break;
                 }
 
                 case "SNAM"_m: {
-                    std::string skyName;
-                    *readerChild >> skyName;
+                    *readerChild >> Level::m_world.m_skyName;
                     break;
                 }
 
