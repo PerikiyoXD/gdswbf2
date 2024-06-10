@@ -7,6 +7,7 @@
 #include <godot_cpp/godot.hpp>
 
 #include "SWBF2/Core.hpp"
+#include "SWBF2/Level.hpp"
 
 /// @file
 /// Register our classes with Godot.
@@ -26,6 +27,7 @@ namespace
         }
 
         godot::ClassDB::register_class<SWBF2::Core>();
+        godot::ClassDB::register_class<SWBF2::Level>();
     }
 
     /// @brief Called by Godot to let us do any cleanup.

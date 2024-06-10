@@ -5,7 +5,6 @@
 #include "Version.h"
 
 #include "Native/Chunks/ChunkProcessor.hpp"
-#include "Native/Level.hpp"
 
 #include <chrono>
 #include <iostream>
@@ -23,7 +22,6 @@ namespace SWBF2
 
         SWBF2::Native::UcfbChunk::ReadUcfbFile("data/_lvl_pc/common.lvl");
         SWBF2::Native::UcfbChunk::ReadUcfbFile("data/_lvl_pc/core.lvl");
-        SWBF2::Native::UcfbChunk::ReadUcfbFile("data/_lvl_pc/cor/cor1.lvl");
     }
 
     void Core::_bind_methods()
