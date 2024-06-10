@@ -7,6 +7,13 @@
 #include <unordered_map>
 #include <string_view>
 #include <functional>
+#include <vector>
+#include <optional>
+#include <stdexcept>
+
+#include "Vector2.hpp"
+#include "Vector3.hpp"
+#include "RGBA.hpp"
 
 namespace SWBF2
 {
@@ -19,12 +26,13 @@ namespace SWBF2
 
     constexpr auto SWBF2HANDLE_INVALID = 0xffff;
 
-    namespace Wrappers
-    {
-        class MapsWrapper
-        {
-        public:
-            std::unordered_map<FNVHash, size_t> LocalizationNameToIndex;
-        };
-    }
+    enum class Topology : uint32_t {
+        Unknown,
+        PointList,
+        LineList,
+        LineStrip,
+        TriangleList,
+        TriangleStrip,
+        TriangleFan,
+    };
 }

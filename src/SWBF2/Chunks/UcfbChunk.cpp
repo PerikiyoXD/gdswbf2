@@ -28,6 +28,7 @@ namespace SWBF2
 
         is.seekg(0, std::ios::beg);
         is.read(reinterpret_cast<char *>(&bytes[0]), size);
+        is.close();
 
         StreamReader streamReader{ bytes };
         ProcessChunk(streamReader);
