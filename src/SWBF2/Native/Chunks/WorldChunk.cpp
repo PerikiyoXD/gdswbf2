@@ -1,10 +1,12 @@
 #include <godot_cpp/variant/utility_functions.hpp>
 
+#include "Native/Level.hpp"
+
 #include "StreamReader.hpp"
 
 #include "WorldChunk.hpp"
 
-namespace SWBF2
+namespace SWBF2::Native
 {
     void WorldChunk::ProcessChunk(StreamReader &streamReader)
     {

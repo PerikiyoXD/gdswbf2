@@ -4,7 +4,8 @@
 #include "Core.hpp"
 #include "Version.h"
 
-#include "SWBF2/Chunks/ChunkProcessor.hpp"
+#include "Native/Chunks/ChunkProcessor.hpp"
+#include "Native/Level.hpp"
 
 #include <chrono>
 #include <iostream>
@@ -18,14 +19,11 @@ namespace SWBF2
 
     void Core::_ready()
     {
-        using namespace std::chrono_literals;
-        std::this_thread::sleep_for(5000ms);
-
         godot::UtilityFunctions::print("hello world!");
 
         // UcfbChunk::ReadUcfbFile("data/_lvl_pc/common.lvl");
         // UcfbChunk::ReadUcfbFile("data/_lvl_pc/core.lvl");
-        UcfbChunk::ReadUcfbFile("data/_lvl_pc/cor/cor1.lvl");
+        SWBF2::Native::UcfbChunk::ReadUcfbFile("data/_lvl_pc/cor/cor1.lvl");
     }
 
     void Core::_bind_methods()

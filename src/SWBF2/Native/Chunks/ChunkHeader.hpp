@@ -1,11 +1,8 @@
 #pragma once
 
-#include <stdint.h>
+#include "Types.hpp"
 
-#include "../Types.hpp"
-#include "Hashing.hpp"
-
-namespace SWBF2
+namespace SWBF2::Native
 {
     struct ChunkHeader
     {
@@ -39,12 +36,6 @@ namespace SWBF2
         result |= chars[2] << 16;
         result |= chars[3] << 24;
         return result;
-    }
-
-    constexpr ChunkHeader operator""_fnvh(const char *chars, const size_t length)
-    {
-        FNVHash fnvHeader = FNV::HashConstexpr({ chars, length });
-        return *((ChunkHeader *)&fnvHeader);
     }
 
     bool IsPrintableHeader(const ChunkHeader &hedr);

@@ -2,7 +2,7 @@
 
 #include "ChunkHeader.hpp"
 
-namespace SWBF2
+namespace SWBF2::Native
 {
     class UcfbChunk {
     public:

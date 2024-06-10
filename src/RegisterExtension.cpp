@@ -6,7 +6,7 @@
 #include <godot_cpp/core/defs.hpp>
 #include <godot_cpp/godot.hpp>
 
-#include "Core.hpp"
+#include "SWBF2/Core.hpp"
 
 /// @file
 /// Register our classes with Godot.

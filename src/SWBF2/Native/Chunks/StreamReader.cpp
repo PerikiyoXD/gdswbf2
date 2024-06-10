@@ -6,7 +6,7 @@
 #include "ChunkHeader.hpp"
 #include "StreamReader.hpp"
 
-namespace SWBF2
+namespace SWBF2::Native
 {
     StreamReader::StreamReader()
     {

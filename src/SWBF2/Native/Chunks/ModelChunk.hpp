@@ -2,9 +2,9 @@
 
 #include "StreamReader.hpp"
 
-namespace SWBF2
+namespace SWBF2::Native
 {
-    class WorldChunk {
+    class ModelChunk {
     public:
         static void ProcessChunk(StreamReader &streamReader);
     };

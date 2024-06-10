@@ -4,8 +4,7 @@
 
 namespace SWBF2
 {
-    class Core : public godot::Node
-    {
+    class Core : public godot::Node {
         GDCLASS(Core, godot::Node)
 
     public:

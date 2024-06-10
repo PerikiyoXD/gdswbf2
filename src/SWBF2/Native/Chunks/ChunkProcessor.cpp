@@ -2,7 +2,7 @@
 
 #include "ChunkProcessor.hpp"
 
-namespace SWBF2
+namespace SWBF2::Native
 {
     void ChunkProcessor::ProcessChunk(StreamReader &streamReader, StreamReader &parentReader)
     {

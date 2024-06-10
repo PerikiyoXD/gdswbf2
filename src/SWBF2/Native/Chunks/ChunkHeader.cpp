@@ -1,13 +1,11 @@
-#include <set>
-#include <array>
-#include <map>
-#include <string>
-#include <format>
+#include "Types.hpp"
 
 #include "ChunkHeader.hpp"
 
-namespace SWBF2
+namespace SWBF2::Native
 {
+    // TODO
+    /*
     const std::map<ChunkHeader, std::string> KNOWN_SOUND_HEADERS =
     {
         {"StreamList"_fnvh, 	"StreamList"},
@@ -17,6 +15,7 @@ namespace SWBF2
         {"Data"_fnvh, 			"Data"},
         {"SampleBank"_fnvh, 	"SampleBank"},
     };
+    */
 
     const std::set<ChunkHeader> KNOWN_GENERIC_HEADERS =
     {
@@ -66,11 +65,14 @@ namespace SWBF2
 
     std::string ChunkHeader::ToString() const
     {
+        // TODO
+        /*
         auto soundLookup = KNOWN_SOUND_HEADERS.find(*this);
         if (soundLookup != KNOWN_SOUND_HEADERS.end())
         {
             return soundLookup->second;
         }
+        */
 
         std::string result;
         if (!IsPrintableHeader(*this))
@@ -105,6 +107,6 @@ namespace SWBF2
 
     bool IsKnownHeader(const ChunkHeader &hedr)
     {
-        return (KNOWN_GENERIC_HEADERS.find(hedr) != KNOWN_GENERIC_HEADERS.end()) || (KNOWN_SOUND_HEADERS.find(hedr) != KNOWN_SOUND_HEADERS.end());
+        return (KNOWN_GENERIC_HEADERS.find(hedr) != KNOWN_GENERIC_HEADERS.end())/* || (KNOWN_SOUND_HEADERS.find(hedr) != KNOWN_SOUND_HEADERS.end())*/;
     }
 }

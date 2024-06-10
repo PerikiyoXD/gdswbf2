@@ -1,15 +1,11 @@
 #pragma once
 
-#include <stdexcept>
-#include <vector>
-#include <optional>
-#include <string>
-
 #include <godot_cpp/variant/utility_functions.hpp>
 
+#include "Types.hpp"
 #include "ChunkHeader.hpp"
 
-namespace SWBF2
+namespace SWBF2::Native
 {
     class StreamReader {
 

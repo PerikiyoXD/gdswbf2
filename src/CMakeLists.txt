@@ -2,18 +2,17 @@
 
 target_sources(${PROJECT_NAME}
     PRIVATE
-        "SWBF2/Chunks/ChunkHeader.cpp"
-        "SWBF2/Chunks/ChunkProcessor.cpp"
-        "SWBF2/Chunks/StreamReader.cpp"
-        "SWBF2/Chunks/UcfbChunk.cpp"
-        "SWBF2/Chunks/WorldChunk.cpp"
-        "SWBF2/Types.hpp"
-        "Core.cpp"
-        "Core.hpp"
+        "SWBF2/Native/Chunks/ChunkHeader.cpp"
+        "SWBF2/Native/Chunks/ChunkProcessor.cpp"
+        "SWBF2/Native/Chunks/ModelChunk.cpp"
+        "SWBF2/Native/Chunks/ModelSegmentChunk.cpp"
+        "SWBF2/Native/Chunks/StreamReader.cpp"
+        "SWBF2/Native/Chunks/UcfbChunk.cpp"
+        "SWBF2/Native/Chunks/WorldChunk.cpp"
+        "SWBF2/Native/Models/Model.cpp"
+        "SWBF2/Native/Level.cpp"
+        "SWBF2/Core.cpp"
         "RegisterExtension.cpp"
 )
 
-target_include_directories(${PROJECT_NAME}
-    PRIVATE
-        "src"
-)
+target_include_directories(${PROJECT_NAME} PRIVATE SWBF2)
