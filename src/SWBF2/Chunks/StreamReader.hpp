@@ -1,5 +1,6 @@
 #pragma once
 
+#include <stdexcept>
 #include <vector>
 #include <optional>
 #include <string>
@@ -47,7 +48,7 @@ namespace SWBF2
         StreamReader &operator>>(T &value)
         {
             if (IsEof() || (m_head + sizeof(T)) > m_header.size) {
-                throw std::exception("eof");
+                throw std::runtime_error("eof");
             }
 
             std::memcpy(&value, &m_data[m_head], sizeof(T));
@@ -64,7 +65,7 @@ namespace SWBF2
             std::size_t totalSize = vecSize * sizeof(T);
 
             if (IsEof() || (m_head + totalSize) > m_header.size) {
-                throw std::exception("eof");
+                throw std::runtime_error("eof");
             }
 
             std::memcpy(&value[0], &m_data[m_head], totalSize);
