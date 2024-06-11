@@ -13,6 +13,9 @@ namespace SWBF2
         ~Level() = default;
 
         virtual void _ready() override;
+
+        void LoadMeshes();
+
         void _process(double delta_time) override;
 
         void activate(bool active = true);
