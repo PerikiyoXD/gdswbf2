@@ -57,10 +57,23 @@ namespace SWBF2::Native
 
                     break;
                 }
+                case "TNAM"_m:
+                {
+                    uint32_t index;
+                    *readerChild >> index;
+
+                    std::string texName;
+                    *readerChild >> texName;
+
+                    string_tolower(texName);
+
+                    segment.m_textureNames.push_back(texName);
+
+                    break;
+                }
                 case "BNAM"_m:
                 case "SKIN"_m:
                 case "BMAP"_m:
-                case "TNAM"_m:
                 case "MNAM"_m:
                 default:
                     godot::UtilityFunctions::printerr(__FILE__, ":", __LINE__, ": ", readerChild->GetHeader().ToString().c_str(), " not implemented");

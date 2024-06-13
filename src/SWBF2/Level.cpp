@@ -1,6 +1,8 @@
 
 #include <godot_cpp/classes/array_mesh.hpp>
 #include <godot_cpp/classes/mesh_instance3d.hpp>
+#include <godot_cpp/classes/image_texture.hpp>
+#include <godot_cpp/classes/standard_material3d.hpp>
 #include <godot_cpp/variant/color.hpp>
 
 #include "Native/Chunks/ChunkProcessor.hpp"
@@ -14,12 +16,59 @@ namespace SWBF2
     {
         SWBF2::Native::UcfbChunk::ReadUcfbFile("data/_lvl_pc/cor/cor1.lvl");
 
+        LoadTextures();
+        LoadMeshes();
+    }
+
+    void Level::LoadTextures()
+    {
+        for (auto const &[id, tex] : Native::Level::m_tex)
+        {
+            /*const auto &fmt{ tex.m_formats[0] };
+
+            if (fmt.m_info.m_format & Native::D3DFMT_A4R4G4B4 || fmt.m_info.m_format & Native::D3DFMT_R5G6B5)
+            {
+
+
+                std::size_t imageInBytes{ image.GetImages()->rowPitch * image.GetImages()->height };
+                DirectX::Blob blob;
+                blob.Initialize(imageInBytes);
+                if (FAILED(DirectX::SaveToTGAMemory(*image.GetImage(0, 0, 0), blob)))
+                {
+                    throw std::runtime_error("failed to save image to tga");
+                }
+
+                godot::PackedByteArray tgaBuf;
+                tgaBuf.resize(blob.GetBufferSize());
+
+                std::memcpy(tgaBuf.ptrw(), blob.GetBufferPointer(), blob.GetBufferSize());
+
+                godot::Ref<godot::Image> img{ memnew(godot::Image) };
+                img->load_tga_from_buffer(tgaBuf);
+
+                godot::Ref<godot::ImageTexture> imgTex = memnew(godot::ImageTexture);
+                imgTex->create_from_image(img);
+
+                godot::Ref<godot::StandardMaterial3D> material = memnew(godot::StandardMaterial3D);
+                material->set_texture(godot::StandardMaterial3D::TEXTURE_ALBEDO, imgTex);
+
+                m_textureMaterials.insert_or_assign(id, material);
+            }*/
+        //if (fmt.m_info.m_format & Native::D3DFMT_DXT1)
+        //    imageDataFormat |= godot::Image::FORMAT_DXT1;
+        //if (fmt.m_info.m_format & Native::D3DFMT_DXT3)
+        //    imageDataFormat |= godot::Image::FORMAT_DXT3;
+        }
+    }
+
+    void Level::LoadMeshes()
+    {
         for (auto const &[id, model] : Native::Level::m_models)
         {
             for (auto const &segment : model.m_segments)
             {
                 godot::MeshInstance3D *meshInstance = memnew(godot::MeshInstance3D);
-                // meshInstance->set_name("_lvl_terrain");
+                meshInstance->set_name(std::format("_lvl_mesh_{}", id).c_str());
 
                 add_child(meshInstance);
 
@@ -47,10 +96,7 @@ namespace SWBF2
 
                 for (const auto &color : segment.m_verticesBuf.m_colors)
                 {
-                    colors.push_back({(float) color.r / 255.0f,
-                                      (float) color.g / 255.0f,
-                                      (float) color.b / 255.0f,
-                                      (float) color.a / 255.0f});
+                    colors.push_back({ (float)color.color.r / 255.0f, (float)color.color.g, (float)color.color.b / 255.0f, (float)color.color.a / 255.0f });
                 }
 
                 for (const auto &texCoord : segment.m_verticesBuf.m_texCoords)
@@ -58,9 +104,10 @@ namespace SWBF2
                     uvs.push_back({ texCoord.x, texCoord.y });
                 }
 
-                for (uint32_t i = 0; i < segment.m_indicesBuf.m_indices.size(); i++)
+                // reverse the faces
+                for (std::size_t i = segment.m_indicesBuf.m_indices.size(); i > 0; i--)
                 {
-                    indices.push_back({ segment.m_indicesBuf.m_indices[i] });
+                    indices.push_back({ segment.m_indicesBuf.m_indices[i - 1] });
                 }
 
                 godot::Array arrays;
@@ -74,6 +121,20 @@ namespace SWBF2
 
                 godot::ArrayMesh *arrMesh = memnew(godot::ArrayMesh);
                 arrMesh->add_surface_from_arrays(godot::Mesh::PRIMITIVE_TRIANGLE_STRIP, arrays);
+
+                auto tex_id = 0;
+                for (const auto &texName : segment.m_textureNames)
+                {
+                    if (!m_textureMaterials.contains(texName))
+                    {
+                        godot::UtilityFunctions::printerr(__FILE__, ":", __LINE__, ": No texture found for ", texName.c_str());
+                        continue;
+                    }
+
+                    //meshInstance->set_surface_override_material(tex_id, m_textureMaterials[texName]);
+
+                    tex_id++;
+                }
 
                 meshInstance->set_mesh(arrMesh);
             }
