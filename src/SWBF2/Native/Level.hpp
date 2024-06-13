@@ -1,10 +1,14 @@
-
 #pragma once
 
 #include "Models/Model.hpp"
 #include "Texture/Texture.hpp"
 
 #include "World.hpp"
+
+#include "FNVHash.hpp"
+
+#include <unordered_map>
+#include <memory>
 
 namespace SWBF2::Native
 {
