@@ -1,29 +1,24 @@
-
-#include <optional>
-
-#include <godot_cpp/variant/utility_functions.hpp>
-
-#include "ChunkHeader.hpp"
 #include "StreamReader.hpp"
+#include "ChunkHeader.hpp"
 
 namespace SWBF2::Native
 {
     StreamReader::StreamReader()
-    {
+{
         m_head = 0;
         m_data = nullptr;
         m_header = { 0 };
     }
 
     StreamReader::StreamReader(const ChunkHeader &header, const std::byte *bytes)
-        : m_header(header),
-        m_data(bytes),
-        m_head(0)
-    {
+            : m_header(header),
+              m_data(bytes),
+              m_head(0)
+{
     }
 
     StreamReader::StreamReader(const std::vector<std::byte> &bytes)
-    {
+{
         m_head = 0;
         m_data = bytes.data();
 
@@ -33,8 +28,9 @@ namespace SWBF2::Native
     }
 
     std::optional<StreamReader> StreamReader::ReadChild()
-    {
-        if (IsEof() || (m_head + sizeof(ChunkHeader)) >= m_header.size) {
+{
+        if (IsEof() || (m_head + sizeof(ChunkHeader)) >= m_header.size)
+        {   
             return std::nullopt;
         }
 
@@ -50,7 +46,7 @@ namespace SWBF2::Native
     }
 
     bool StreamReader::SkipBytes(uint32_t bytes)
-    {
+{
         if (IsEof())
         {
             return false;
@@ -61,27 +57,27 @@ namespace SWBF2::Native
     }
 
     const ChunkHeader &StreamReader::GetHeader() const
-    {
+{
         return m_header;
     }
 
     std::size_t StreamReader::GetHead()
-    {
+{
         return m_head;
     }
 
     std::size_t StreamReader::RemainingBytes()
-    {
+{
         return GetHeader().size - m_head;
     }
 
     bool StreamReader::IsEof()
-    {
+{
         return m_head >= GetHeader().size;
     }
 
     void StreamReader::AlignHead()
-    {
+{
         const auto remainder = m_head % 4;
         if (remainder != 0) m_head += (4 - remainder);
     }

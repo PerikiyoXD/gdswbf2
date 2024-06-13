@@ -1,13 +1,8 @@
+#include "UcfbChunk.hpp"
 
-#include <iostream>
-#include <fstream>
-
-#include <godot_cpp/variant/utility_functions.hpp>
-
-#include "StreamReader.hpp"
 #include "ChunkProcessor.hpp"
 
-#include "UcfbChunk.hpp"
+#include <fstream>
 
 namespace SWBF2::Native
 {

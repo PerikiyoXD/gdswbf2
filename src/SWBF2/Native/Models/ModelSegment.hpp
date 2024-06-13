@@ -1,4 +1,3 @@
-
 #pragma once
 
 #include "Types.hpp"
@@ -28,35 +27,35 @@ namespace SWBF2::Native
         TexCoordCompressed = 0b1000000000000000u
     };
 
-    typedef struct _MODEL_SEGMENT_INFO
+    typedef struct MODEL_SEGMENT_INFO
     {
         Topology m_topology;
         uint32_t m_vertexCount;
         uint32_t m_primitiveCount;
     } ModelSegmentInfo;
 
-    typedef struct _INDICES_BUF
+    typedef struct INDICES_BUF
     {
         uint32_t m_indicesCount;
         std::vector<uint16_t> m_indices;
     } IndicesBuf;
 
-    typedef struct _VERTICES_BUF
+    typedef struct VERTICES_BUF
     {
         uint32_t m_verticesCount;
         uint32_t m_stride; // bytes per vertex
         VBUFFlags m_flags;
 
-        std::vector<Vector3<float>> m_positions;
-        std::vector<Vector3<float>> m_normals;
-        std::vector<Vector3<float>> m_tangents;
-        std::vector<Vector3<float>> m_biTangents;
+        std::vector<godot::Vector3> m_positions;
+        std::vector<godot::Vector3> m_normals;
+        std::vector<godot::Vector3> m_tangents;
+        std::vector<godot::Vector3> m_biTangents;
 
-        std::vector<RGBA> m_colors;
-        std::vector<Vector2<float>> m_texCoords;
+        std::vector<godot::Color> m_colors;
+        std::vector<godot::Vector2> m_texCoords;
 
-        std::vector<Vector3<uint8_t>> m_boneIndices;
-        std::vector<Vector3<float>> m_weights;
+        std::vector<godot::Vector3i> m_boneIndices;
+        std::vector<godot::Vector3> m_weights;
     } VerticesBuf;
 
     class ModelSegment {

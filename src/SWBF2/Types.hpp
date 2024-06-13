@@ -8,15 +8,16 @@
 #include <vector>
 #include <optional>
 #include <stdexcept>
-#include <stdint.h>
 #include <set>
 #include <array>
 #include <map>
 #include <format>
 
-#include "Vector2.hpp"
-#include "Vector3.hpp"
-#include "RGBA.hpp"
+#include <godot_cpp/variant/color.hpp>
+#include <godot_cpp/variant/vector2.hpp>
+#include <godot_cpp/variant/vector3.hpp>
+#include <godot_cpp/variant/vector2i.hpp>
+#include <godot_cpp/variant/vector3i.hpp>
 
 namespace SWBF2
 {

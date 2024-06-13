@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ChunkHeader.hpp"
+#include "StreamReader.hpp"
 
 namespace SWBF2::Native
 {

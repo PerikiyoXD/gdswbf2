@@ -1,5 +1,3 @@
-#include <godot_cpp/variant/utility_functions.hpp>
-
 #include "ChunkProcessor.hpp"
 
 namespace SWBF2::Native

@@ -48,7 +48,7 @@ namespace SWBF2::Native
                 throw std::runtime_error("eof");
             }
 
-            std::memcpy(&value, &m_data[m_head], sizeof(T));
+            value = *const_cast<T*>(reinterpret_cast<const T*>(&m_data[m_head]));
 
             m_head += sizeof(T);
 

@@ -1,4 +1,3 @@
-
 #pragma once
 
 #include "Types.hpp"
@@ -29,8 +28,8 @@ namespace SWBF2::Native
     class Material {
     public:
         MaterialFlags m_flags;
-        RGBA m_diffuseColor;
-        RGBA m_specularColor;
+        godot::Color m_diffuseColor;
+        godot::Color m_specularColor;
         uint32_t m_specularExponent;
         uint32_t m_parameters[2];
         std::string m_attachedLight;

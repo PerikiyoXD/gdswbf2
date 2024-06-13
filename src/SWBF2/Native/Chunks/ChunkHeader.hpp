@@ -23,9 +23,9 @@ namespace SWBF2::Native
         bool operator>(const ChunkHeader &other) const;
     };
 
-    constexpr ChunkHeader operator""_h(const char *chars, const size_t length)
+    _FORCE_INLINE_ const ChunkHeader operator""_h(const char *chars, const size_t length)
     {
-        return *(ChunkHeader *)chars;
+        return *reinterpret_cast<const ChunkHeader *>(chars);
     }
 
     constexpr uint32_t operator""_m(const char *chars, const size_t length)

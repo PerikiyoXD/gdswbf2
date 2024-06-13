@@ -1,8 +1,5 @@
-#include <godot_cpp/variant/utility_functions.hpp>
-
-#include "StreamReader.hpp"
-
 #include "ModelSegmentChunk.hpp"
+#include "StreamReader.hpp"
 
 namespace SWBF2::Native
 {
@@ -23,8 +20,8 @@ namespace SWBF2::Native
                 {
                     Material mat;
                     *readerChild >> mat.m_flags;
-                    *readerChild >> mat.m_diffuseColor.color32;
-                    *readerChild >> mat.m_specularColor.color32;
+                    *readerChild >> mat.m_diffuseColor;
+                    *readerChild >> mat.m_specularColor;
                     *readerChild >> mat.m_specularExponent;
                     *readerChild >> mat.m_parameters;
                     *readerChild >> mat.m_attachedLight;
@@ -80,21 +77,24 @@ namespace SWBF2::Native
         {
             if ((segment.m_verticesBuf.m_flags & VBUFFlags::PositionCompressed) != 0)
             {
-                Vector3<float> low = model.m_info.m_vertexBox[0];
-                Vector3<float> mul = model.m_info.m_vertexBox[1] - model.m_info.m_vertexBox[0];
+                godot::Vector3 low = model.m_info.m_vertexBox[0];
+                godot::Vector3 mul = model.m_info.m_vertexBox[1] - model.m_info.m_vertexBox[0];
 
                 int16_t data[4];
                 streamReader >> data;
-                Vector3<float> c(data[0], data[1], data[2]);
+                godot::Vector3 c(data[0], data[1], data[2]);
 
                 constexpr float i16min = std::numeric_limits<int16_t>::min();
                 constexpr float i16max = std::numeric_limits<int16_t>::max();
 
-                segment.m_verticesBuf.m_positions.push_back((low + (c - i16min) * mul / (i16max - i16min)));
+                godot::Vector3 minVec3(i16min, i16min, i16min);
+                godot::Vector3 maxVec3(i16max, i16max, i16max);
+
+                segment.m_verticesBuf.m_positions.push_back((low + (c - minVec3) * mul / (maxVec3 - minVec3)));
             }
             else
             {
-                Vector3<float> vec3;
+                godot::Vector3 vec3;
                 streamReader >> vec3;
 
                 segment.m_verticesBuf.m_positions.push_back(vec3);
@@ -113,7 +113,7 @@ namespace SWBF2::Native
             }
             else
             {
-                Vector2<float> vec2;
+                godot::Vector2 vec2;
                 streamReader >> vec2;
 
                 segment.m_verticesBuf.m_weights.push_back({ vec2.x, vec2.y, 1.0f - vec2.x - vec2.y });
@@ -139,13 +139,13 @@ namespace SWBF2::Native
             {
                 int8_t data[4];
                 streamReader >> data;
-                Vector3<float> normal((float_t)data[0], (float_t)data[1], (float_t)data[2]);
-                normal = (normal * 2.0f) - 1.0f;
+                godot::Vector3 normal((float_t)data[0], (float_t)data[1], (float_t)data[2]);
+                normal = (normal * 2.0f) - godot::Vector3(1.0f, 1.0f, 1.0f);
                 segment.m_verticesBuf.m_normals.push_back(normal);
             }
             else
             {
-                Vector3<float> vec3;
+                godot::Vector3 vec3;
                 streamReader >> vec3;
 
                 segment.m_verticesBuf.m_normals.push_back(vec3);
@@ -158,18 +158,18 @@ namespace SWBF2::Native
             {
                 int8_t data[4];
                 streamReader >> data;
-                Vector3<float> tangent((float_t)data[0], (float_t)data[1], (float_t)data[2]);
-                tangent = (tangent * 2.0f) - 1.0f;
+                godot::Vector3 tangent((float_t)data[0], (float_t)data[1], (float_t)data[2]);
+                tangent = (tangent * 2.0f) - godot::Vector3(1.0f, 1.0f, 1.0f);
                 segment.m_verticesBuf.m_tangents.push_back(tangent);
 
                 streamReader >> data;
-                Vector3<float> biTangent((float_t)data[0], (float_t)data[1], (float_t)data[2]);
-                biTangent = (biTangent * 2.0f) - 1.0f;
+                godot::Vector3 biTangent((float_t)data[0], (float_t)data[1], (float_t)data[2]);
+                biTangent = (biTangent * 2.0f) - godot::Vector3(1.0f, 1.0f, 1.0f);
                 segment.m_verticesBuf.m_biTangents.push_back(biTangent);
             }
             else
             {
-                Vector3<float> vec3Tangent, vec3BiTangent;
+                godot::Vector3 vec3Tangent, vec3BiTangent;
                 streamReader >> vec3Tangent >> vec3BiTangent;
 
                 segment.m_verticesBuf.m_tangents.push_back(vec3Tangent);
@@ -179,7 +179,7 @@ namespace SWBF2::Native
 
         if ((segment.m_verticesBuf.m_flags & VBUFFlags::Color) != 0)
         {
-            RGBA color;
+            godot::Color color;
             streamReader >> color;
 
             segment.m_verticesBuf.m_colors.push_back(color);
@@ -187,7 +187,7 @@ namespace SWBF2::Native
 
         if ((segment.m_verticesBuf.m_flags & VBUFFlags::StaticLighting) != 0)
         {
-            RGBA color;
+            godot::Color color;
             streamReader >> color;
 
             segment.m_verticesBuf.m_colors.push_back(color);
@@ -199,13 +199,13 @@ namespace SWBF2::Native
             {
                 uint16_t data[2];
                 streamReader >> data;
-                Vector2<float> uv(data[0], data[1]);
+                godot::Vector2 uv(data[0], data[1]);
                 uv = uv / 2048.0f;
                 segment.m_verticesBuf.m_texCoords.push_back(uv);
             }
             else
             {
-                Vector2<float> vec2;
+                godot::Vector2 vec2;
                 streamReader >> vec2;
 
                 segment.m_verticesBuf.m_texCoords.push_back(vec2);

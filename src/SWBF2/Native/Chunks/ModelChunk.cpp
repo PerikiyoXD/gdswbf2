@@ -1,9 +1,6 @@
-#include <godot_cpp/variant/utility_functions.hpp>
-
-#include "StreamReader.hpp"
-
 #include "ModelChunk.hpp"
 #include "ModelSegmentChunk.hpp"
+#include "StreamReader.hpp"
 
 #include "Native/Level.hpp"
 #include "Native/Models/Model.hpp"
