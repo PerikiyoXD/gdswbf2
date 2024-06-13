@@ -96,7 +96,7 @@ namespace SWBF2
 
                 for (const auto &color : segment.m_verticesBuf.m_colors)
                 {
-                    colors.push_back({ (float)color.color.r / 255.0f, (float)color.color.g, (float)color.color.b / 255.0f, (float)color.color.a / 255.0f });
+                    colors.push_back({ (float)color.r / 255.0f, (float)color.g, (float)color.b / 255.0f, (float)color.a / 255.0f });
                 }
 
                 for (const auto &texCoord : segment.m_verticesBuf.m_texCoords)
