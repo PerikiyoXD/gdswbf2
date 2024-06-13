@@ -113,5 +113,6 @@ add_subdirectory(extern)
 target_link_libraries( ${PROJECT_NAME}
     PRIVATE
         godot-cpp
-        DirectXTex
+        lua 
+        sol2
 )

@@ -20,16 +20,14 @@ namespace SWBF2
         LoadMeshes();
     }
 
-    void Level::LoadTextures()
-    {
+    void Level::LoadTextures(){}
+    /* {
         for (auto const &[id, tex] : Native::Level::m_tex)
         {
-            /*const auto &fmt{ tex.m_formats[0] };
+            const auto &fmt{ tex.m_formats[0] };
 
             if (fmt.m_info.m_format & Native::D3DFMT_A4R4G4B4 || fmt.m_info.m_format & Native::D3DFMT_R5G6B5)
             {
-
-
                 std::size_t imageInBytes{ image.GetImages()->rowPitch * image.GetImages()->height };
                 DirectX::Blob blob;
                 blob.Initialize(imageInBytes);
@@ -53,13 +51,13 @@ namespace SWBF2
                 material->set_texture(godot::StandardMaterial3D::TEXTURE_ALBEDO, imgTex);
 
                 m_textureMaterials.insert_or_assign(id, material);
-            }*/
-        //if (fmt.m_info.m_format & Native::D3DFMT_DXT1)
-        //    imageDataFormat |= godot::Image::FORMAT_DXT1;
-        //if (fmt.m_info.m_format & Native::D3DFMT_DXT3)
-        //    imageDataFormat |= godot::Image::FORMAT_DXT3;
+            }
+        if (fmt.m_info.m_format & Native::D3DFMT_DXT1)
+           imageDataFormat |= godot::Image::FORMAT_DXT1;
+        if (fmt.m_info.m_format & Native::D3DFMT_DXT3)
+           imageDataFormat |= godot::Image::FORMAT_DXT3;
         }
-    }
+    } */
 
     void Level::LoadMeshes()
     {

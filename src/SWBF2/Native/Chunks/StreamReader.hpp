@@ -45,8 +45,12 @@ namespace SWBF2::Native
         StreamReader &operator>>(T &value)
         {
             if (IsEof() || (m_head + sizeof(T)) > m_header.size) {
+                auto str = "eof at " + std::to_string(m_head) + " of " + std::to_string(m_header.size);
+                godot::UtilityFunctions::print(str.c_str());
                 throw std::runtime_error("eof");
             }
+
+            godot::UtilityFunctions::print(("reading " + std::to_string(sizeof(T)) + " bytes at " + std::to_string(m_head) + " of " + std::to_string(m_header.size)).c_str());
 
             value = *const_cast<T*>(reinterpret_cast<const T*>(&m_data[m_head]));
 
@@ -61,6 +65,8 @@ namespace SWBF2::Native
             std::size_t totalSize = size * sizeof(T);
 
             if (IsEof() || (m_head + totalSize) > m_header.size) {
+                auto str = "eof at " + std::to_string(m_head) + " of " + std::to_string(m_header.size);
+                godot::UtilityFunctions::print(str.c_str());
                 throw std::runtime_error("eof");
             }
 
@@ -78,6 +84,8 @@ namespace SWBF2::Native
             std::size_t totalSize = vecSize * sizeof(T);
 
             if (IsEof() || (m_head + totalSize) > m_header.size) {
+                auto str = "eof at " + std::to_string(m_head) + " of " + std::to_string(m_header.size);
+                godot::UtilityFunctions::print(str.c_str());
                 throw std::runtime_error("eof");
             }
 

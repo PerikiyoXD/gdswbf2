@@ -1,5 +1,6 @@
 #include "ModelSegmentChunk.hpp"
 #include "StreamReader.hpp"
+#include "Utils.hpp"
 
 namespace SWBF2::Native
 {

@@ -73,9 +73,6 @@ namespace SWBF2::Native
                     break;
             }
         }
-
-        TextureUtils::TextureFormatType texFormatType{ fmt.m_typeDetailBias & 0xffu };
-        DirectX::ScratchImage scratchImage = TextureUtils::CreateScratchImage(texFormatType, fmt.m_width, fmt.m_height, fmt.m_depth, fmt.m_format, fmt.m_mipmapCount);
     }
 
     void TextureChunk::ProcessTextureLevelChunk(StreamReader &streamReader, TextureFormat &fmt)

@@ -6,10 +6,12 @@
 #include "Version.h"
 
 #include "Native/Chunks/ChunkProcessor.hpp"
+#include "Native/API/ScriptingAPI.hpp"
 
 #include <chrono>
 #include <iostream>
 #include <thread>
+#include <filesystem>
 
 namespace SWBF2
 {
@@ -20,6 +22,24 @@ namespace SWBF2
     void Core::_ready()
     {
         godot::UtilityFunctions::print("hello world!");
+
+        // Find all the .lvl files under data/_lvl_pc and its subdirectories
+
+        SWBF2::Native::API::ScriptingAPI::Register();
+
+        {
+            std::string path{ "data/_lvl_pc" };
+            std::string ext{ ".lvl" };
+
+            for (const auto &entry : std::filesystem::recursive_directory_iterator(path))
+            {
+                if (entry.is_regular_file() && entry.path().extension() == ext)
+                {
+                    godot::UtilityFunctions::print(entry.path().string().c_str());
+                }
+            }
+        }
+
 
         // SWBF2::Native::UcfbChunk::ReadUcfbFile("data/_lvl_pc/common.lvl");
         // SWBF2::Native::UcfbChunk::ReadUcfbFile("data/_lvl_pc/core.lvl");

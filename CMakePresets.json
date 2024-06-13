@@ -52,15 +52,15 @@
       "name": "linux-debug",
       "displayName": "64bit Linux Debug",
       "inherits": "default",
-      "binaryDir": "${sourceDir}/build/Linux-x86_64",
+      "binaryDir": "${sourceDir}/build/Linux-x86_64-Debug",
       "condition": {
         "type": "equals",
         "lhs": "${hostSystemName}",
         "rhs": "Linux"
       },
       "cacheVariables": {
-        "CMAKE_CXX_COMPILER": "g++",
-        "CMAKE_C_COMPILER": "gcc",
+        "CMAKE_CXX_COMPILER": "clang++",
+        "CMAKE_C_COMPILER": "clang",
         "CMAKE_BUILD_TYPE": "Debug"
       }
     },
@@ -68,6 +68,7 @@
       "name": "linux-release",
       "displayName": "64bit Linux Release",
       "inherits": "linux-debug",
+      "binaryDir": "${sourceDir}/build/Linux-x86_64-Release",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release"
       }

@@ -15,6 +15,7 @@ target_sources(${PROJECT_NAME}
         "SWBF2/Native/Texture/Texture.cpp"
         "SWBF2/Native/Texture/TextureUtils.cpp"
         "SWBF2/Native/Level.cpp"
+        "SWBF2/Native/API/ScriptingAPI.cpp"
         "SWBF2/Core.cpp"
         "SWBF2/Level.cpp"
         "RegisterExtension.cpp"
