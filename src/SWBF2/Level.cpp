@@ -48,7 +48,7 @@ namespace SWBF2
                 for (const auto &color : segment.m_verticesBuf.m_colors)
                 {
                     colors.push_back({(float) color.r / 255.0f,
-                                      (float) color.g, 
+                                      (float) color.g / 255.0f,
                                       (float) color.b / 255.0f,
                                       (float) color.a / 255.0f});
                 }
