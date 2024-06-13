@@ -23,8 +23,15 @@ namespace SWBF2
 
         // SWBF2::Native::UcfbChunk::ReadUcfbFile("data/_lvl_pc/common.lvl");
         // SWBF2::Native::UcfbChunk::ReadUcfbFile("data/_lvl_pc/core.lvl");
-
-        add_child(memnew(Level));
+        
+        try
+        {
+            add_child(memnew(Level));
+        }
+        catch(const std::exception& e)
+        {
+            std::cerr << e.what() << '\n';
+        }
     }
 
     void Core::_bind_methods()
